@@ -1,0 +1,6 @@
+list:
+  handler: src\handlers\company\crud\list.handler
+  events:
+    - http:
+        path: companies
+        method: get

@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "@types/node": "^18.11.9",
-    "eslint-config-standard-with-typescript": "^23.0.0"
+    "aws-sdk": "^2.1258.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "serverless-dynamodb-local": "^0.2.40"
   }
 }
