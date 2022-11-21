@@ -8,12 +8,20 @@ provider:
   region: us-east-1
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: hello
-          method: get
+  - ${file(config/company.lambda.yml)}
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+package:
+  patterns:
+    # include
+    - src/**
+    - config/**
+    # exclude
+    - '!__tests__/**'
+    - '!node_modules/**'
 
 
 
