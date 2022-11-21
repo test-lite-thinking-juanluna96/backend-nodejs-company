@@ -18,3 +18,11 @@ delete:
     - http:
         path: companies/{id}
         method: delete
+
+
+update:
+  handler: src\handlers\company\crud\update.handler
+  events:
+    - http:
+        path: companies/{id}
+        method: put
