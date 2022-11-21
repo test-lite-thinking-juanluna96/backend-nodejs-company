@@ -30,6 +30,39 @@ class CompanyDynamo implements CompanyRepository {
 
     return company
   }
+
+  public async delete (id: string): Promise<Company> {
+    const params = {
+      TableName: process.env.COMPANIES_TABLE,
+      Key: {
+        id
+      }
+    }
+
+    // Get company by id first
+    const company = await this.get(id)
+
+    if (company) {
+      // Delete company by id
+      await dynamo.delete(params).promise()
+
+      return company
+    }
+  }
+
+  private async get (id: string): Promise<Company> {
+    const params = {
+      TableName: process.env.COMPANIES_TABLE,
+      Key: {
+        id
+      }
+    }
+
+    // Get company by id
+    const company = await dynamo.get(params).promise()
+
+    return company.Item
+  }
 }
 
 export default CompanyDynamo

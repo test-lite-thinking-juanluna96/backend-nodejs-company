@@ -11,3 +11,10 @@ create:
     - http:
         path: companies
         method: post
+
+delete:
+  handler: src\handlers\company\crud\delete.handler
+  events:
+    - http:
+        path: companies/{id}
+        method: delete
