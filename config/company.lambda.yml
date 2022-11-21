@@ -4,3 +4,10 @@ list:
     - http:
         path: companies
         method: get
+
+create:
+  handler: src\handlers\company\crud\create.handler
+  events:
+    - http:
+        path: companies
+        method: post

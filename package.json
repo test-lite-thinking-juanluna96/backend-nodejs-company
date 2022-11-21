@@ -28,6 +28,9 @@
     "@types/node": "^18.11.9",
     "aws-sdk": "^2.1258.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
-    "serverless-dynamodb-local": "^0.2.40"
+    "joi": "^17.7.0",
+    "serverless-dynamodb-local": "^0.2.40",
+    "uuid": "^9.0.0",
+    "validatorjs": "^3.22.1"
   }
 }
