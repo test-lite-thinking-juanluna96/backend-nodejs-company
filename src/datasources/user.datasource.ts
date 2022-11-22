@@ -5,7 +5,6 @@ import * as dotenv from 'dotenv'
 import * as jwt from 'jsonwebtoken'
 import User from '../core/entities/User'
 import { UserRepository } from './../core/repositories/user.repository'
-
 dotenv.config()
 
 const dynamo = new AWS.DynamoDB.DocumentClient()
@@ -27,7 +26,20 @@ class UserDynamo implements UserRepository {
     }
   }
 
-  public async generateToken (user: User): Promise<string> {
+  public async login (user: User): Promise<User> {
+    // Login user
+    const token = await this.generateToken(user)
+
+    // Dont show password in response
+    delete user.password
+
+    return {
+      ...user,
+      token
+    }
+  }
+
+  private async generateToken (user: User): Promise<string> {
     const userInfo = {
       id: user.id,
       email: user.email,
@@ -60,7 +72,32 @@ class UserDynamo implements UserRepository {
       ConditionExpression: 'attribute_exists(email)'
     }
 
-    const result = await dynamo.get(params).promise().then(() => true).catch(() => false)
+    const result = await dynamo.get(params).promise().then((data) => {
+      if (data.Item) {
+        return true
+      }
+    }).catch(() => false)
+
+    return result
+  }
+
+  public async getUser (user: User): Promise<User> {
+    // Get user by email
+    const params = {
+      TableName: process.env.USERS_TABLE,
+      Key: {
+        email: user.email
+      }
+    }
+
+    const result = await dynamo.get(params).promise()
+
+    return result.Item
+  }
+
+  public async comparePassword (password: string, hash: string): Promise<boolean> {
+    // Compare password with hash
+    const result = await bcrypt.compare(password, hash)
 
     return result
   }

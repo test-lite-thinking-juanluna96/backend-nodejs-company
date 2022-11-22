@@ -28,9 +28,7 @@ const handler = async (event) => {
       }
     }
 
-    const userExists = await User.checkExists(event.body)
-
-    console.log(userExists)
+    const userExists = await User.checkExists(bodyClear)
 
     if (userExists) {
       return {

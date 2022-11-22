@@ -4,3 +4,10 @@ register:
     - http:
         path: register
         method: post
+
+login:
+  handler: src/handlers/users/login.handler
+  events:
+    - http:
+        path: login
+        method: post
