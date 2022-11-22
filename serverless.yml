@@ -9,6 +9,7 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     COMPANIES_TABLE: CompaniesTable
+    USERS_TABLE: UsersTable
 
   iamRoleStatements:
     - Effect: Allow
@@ -20,9 +21,20 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COMPANIES_TABLE}"
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}"
+      
 
 functions:
   - ${file(config/company.lambda.yml)}
+  - ${file(config/user.lambda.yml)}
 
 plugins:
   - serverless-plugin-typescript

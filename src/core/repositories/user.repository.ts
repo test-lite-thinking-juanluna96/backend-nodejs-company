@@ -1,7 +1,8 @@
-import Company from '../entities/Company'
+import User from '../entities/User'
 
-export interface CompanyRepository {
-  list: (company: Company) => Promise<any>
+export interface UserRepository {
+  register: (user: User) => Promise<User>
+  checkExists: (user: User) => Promise<boolean>
 }
 
-export default CompanyRepository
+export default UserRepository

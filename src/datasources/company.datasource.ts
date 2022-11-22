@@ -12,8 +12,6 @@ class CompanyDynamo implements CompanyRepository {
       TableName: process.env.COMPANIES_TABLE
     }
 
-    console.log(params)
-
     const result = await dynamo.scan(params).promise()
 
     return result.Items

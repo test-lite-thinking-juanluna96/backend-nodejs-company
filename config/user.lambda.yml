@@ -1,0 +1,6 @@
+register:
+  handler: src/handlers/users/register.handler
+  events:
+    - http:
+        path: register
+        method: post
