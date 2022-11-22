@@ -62,25 +62,6 @@ class UserDynamo implements UserRepository {
     return hash
   }
 
-  public async checkExists (user: User): Promise<boolean> {
-    // Search by email if user exists or not
-    const params = {
-      TableName: process.env.USERS_TABLE,
-      Key: {
-        email: user.email
-      },
-      ConditionExpression: 'attribute_exists(email)'
-    }
-
-    const result = await dynamo.get(params).promise().then((data) => {
-      if (data.Item) {
-        return true
-      }
-    }).catch(() => false)
-
-    return result
-  }
-
   public async getUser (user: User): Promise<User> {
     // Get user by email
     const params = {
