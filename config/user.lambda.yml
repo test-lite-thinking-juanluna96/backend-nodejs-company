@@ -1,0 +1,13 @@
+register:
+  handler: src/handlers/users/register.handler
+  events:
+    - http:
+        path: register
+        method: post
+
+login:
+  handler: src/handlers/users/login.handler
+  events:
+    - http:
+        path: login
+        method: post

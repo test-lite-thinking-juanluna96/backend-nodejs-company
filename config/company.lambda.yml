@@ -1,0 +1,28 @@
+list:
+  handler: src\handlers\company\crud\list.handler
+  events:
+    - http:
+        path: companies
+        method: get
+
+create:
+  handler: src\handlers\company\crud\create.handler
+  events:
+    - http:
+        path: companies
+        method: post
+
+delete:
+  handler: src\handlers\company\crud\delete.handler
+  events:
+    - http:
+        path: companies/{id}
+        method: delete
+
+
+update:
+  handler: src\handlers\company\crud\update.handler
+  events:
+    - http:
+        path: companies/{id}
+        method: put
