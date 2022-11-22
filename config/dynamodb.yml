@@ -1,0 +1,26 @@
+CompaniesTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${self:provider.environment.COMPANIES_TABLE}
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+    ProvisionedThroughput:
+      ReadCapacityUnits: 1
+      WriteCapacityUnits: 1
+UsersTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${self:provider.environment.USERS_TABLE}
+    AttributeDefinitions:
+      - AttributeName: email
+        AttributeType: S
+    KeySchema:
+      - AttributeName: email
+        KeyType: HASH
+    ProvisionedThroughput:
+      ReadCapacityUnits: 1
+      WriteCapacityUnits: 1
