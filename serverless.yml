@@ -35,6 +35,7 @@ provider:
 functions:
   - ${file(config/company.lambda.yml)}
   - ${file(config/user.lambda.yml)}
+  - ${file(config/checker.lambda.yml)}
 
 plugins:
   - serverless-plugin-typescript

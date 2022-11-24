@@ -6,6 +6,7 @@ const Company = new CompanyDynamo()
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const handler = async (event) => {
   try {
+    // Conseguir listado  de compañias
     const result = await Company.list()
 
     return {
