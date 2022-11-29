@@ -1,4 +1,5 @@
 import statusHelper from '../../../common/helpers/statusCode'
+import sendResponse from './../../../common/helpers/sendResponse'
 import CompanyDynamo from './../../../datasources/company.datasource'
 
 const Company = new CompanyDynamo()
@@ -9,25 +10,13 @@ const handler = async (event) => {
     // Conseguir listado  de compañias
     const result = await Company.list()
 
-    return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(result)
-    }
+    return sendResponse(200, JSON.stringify(result))
   } catch (error) {
     console.error(error)
 
     const [statusCode, message] = await statusHelper.getCode(error)
 
-    return {
-      statusCode,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: message
-    }
+    return sendResponse(statusCode, JSON.stringify(message))
   }
 }
 

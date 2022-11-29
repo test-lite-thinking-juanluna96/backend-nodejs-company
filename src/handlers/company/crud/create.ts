@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import * as Validator from 'validatorjs'
 import statusHelper from '../../../common/helpers/statusCode'
+import sendResponse from './../../../common/helpers/sendResponse'
 import CompanyDynamo from './../../../datasources/company.datasource'
 
 const Company = new CompanyDynamo()
@@ -20,38 +21,20 @@ const handler = async (event) => {
     const validation = new Validator(bodyClear, rules)
 
     if (validation.fails()) {
-      return {
-        statusCode: 400,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(validation.errors)
-      }
+      return sendResponse(400, JSON.stringify(validation.errors))
     }
 
     bodyClear.id = uuidv4()
 
     const result = await Company.create(bodyClear)
 
-    return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(result)
-    }
+    return sendResponse(200, JSON.stringify(result))
   } catch (error) {
     console.error(error)
 
     const [statusCode, message] = await statusHelper.getCode(error)
 
-    return {
-      statusCode,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: message
-    }
+    return sendResponse(statusCode, message)
   }
 }
 

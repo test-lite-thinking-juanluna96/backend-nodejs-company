@@ -4,6 +4,7 @@ list:
     - http:
         path: companies
         method: get
+        cors: true
 
 create:
   handler: src/handlers/company/crud/create.handler
@@ -11,6 +12,7 @@ create:
     - http:
         path: companies
         method: post
+        cors: true
 
 delete:
   handler: src/handlers/company/crud/delete.handler
@@ -18,6 +20,7 @@ delete:
     - http:
         path: companies/{id}
         method: delete
+        cors: true
 
 
 update:
@@ -26,3 +29,4 @@ update:
     - http:
         path: companies/{id}
         method: put
+        cors: true

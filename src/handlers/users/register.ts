@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import * as Validator from 'validatorjs'
+import sendResponse from './../../common/helpers/sendResponse'
 import statusHelper from './../../common/helpers/statusCode'
 import UserDynamo from './../../datasources/user.datasource'
 
@@ -19,27 +20,15 @@ const handler = async (event) => {
     const validation = new Validator(bodyClear, rules)
 
     if (validation.fails()) {
-      return {
-        statusCode: 400,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(validation.errors)
-      }
+      return sendResponse(400, JSON.stringify(validation.errors))
     }
 
     const userExists = await User.getUser(bodyClear)
 
     if (userExists) {
-      return {
-        statusCode: 400,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: 'User already exists'
-        })
-      }
+      return sendResponse(400, JSON.stringify({
+        message: 'User already exists'
+      }))
     }
 
     const newPassword = await User.hashPassword(bodyClear.password)
@@ -53,25 +42,15 @@ const handler = async (event) => {
 
     const newUser = await User.register(user)
 
-    return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newUser)
-    }
+    return sendResponse(200, JSON.stringify(newUser))
   } catch (error) {
     console.error(error)
 
     const [statusCode, message] = await statusHelper.getCode(error)
 
-    return {
-      statusCode,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: message
-    }
+    return sendResponse(statusCode, JSON.stringify({
+      message
+    }))
   }
 }
 

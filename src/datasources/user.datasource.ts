@@ -1,6 +1,6 @@
 
 import * as AWS from 'aws-sdk'
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcryptjs'
 import * as dotenv from 'dotenv'
 import * as jwt from 'jsonwebtoken'
 import User from '../core/entities/User'
