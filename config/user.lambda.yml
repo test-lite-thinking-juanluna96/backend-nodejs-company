@@ -4,6 +4,7 @@ register:
     - http:
         path: register
         method: post
+        cors: true
 
 login:
   handler: src/handlers/users/login.handler
@@ -11,3 +12,4 @@ login:
     - http:
         path: login
         method: post
+        cors: true

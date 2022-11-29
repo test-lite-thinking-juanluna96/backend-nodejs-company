@@ -1,28 +1,32 @@
 list:
-  handler: src\handlers\company\crud\list.handler
+  handler: src/handlers/company/crud/list.handler
   events:
     - http:
         path: companies
         method: get
+        cors: true
 
 create:
-  handler: src\handlers\company\crud\create.handler
+  handler: src/handlers/company/crud/create.handler
   events:
     - http:
         path: companies
         method: post
+        cors: true
 
 delete:
-  handler: src\handlers\company\crud\delete.handler
+  handler: src/handlers/company/crud/delete.handler
   events:
     - http:
         path: companies/{id}
         method: delete
+        cors: true
 
 
 update:
-  handler: src\handlers\company\crud\update.handler
+  handler: src/handlers/company/crud/update.handler
   events:
     - http:
         path: companies/{id}
         method: put
+        cors: true

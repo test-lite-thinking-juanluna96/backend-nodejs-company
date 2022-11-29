@@ -1,0 +1,6 @@
+checker:
+  handler: src/handlers/checker.handler
+  events:
+    - http:
+        path: checker
+        method: get

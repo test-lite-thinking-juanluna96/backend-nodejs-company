@@ -32,14 +32,24 @@ provider:
       Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}"
       
 
+Globals:
+  Api:
+    Cors:
+      AllowOrigin: "'*'"
+      AllowHeaders: "'*'"
+      AllowMethods: "'*'"
+      
 functions:
   - ${file(config/company.lambda.yml)}
   - ${file(config/user.lambda.yml)}
+  - ${file(config/checker.lambda.yml)}
 
 plugins:
   - serverless-plugin-typescript
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
 
 custom:
   dynamodb:
@@ -59,7 +69,6 @@ package:
     - config/**
     # exclude
     - '!__tests__/**'
-    - '!node_modules/**'
 
 
 
